@@ -5,18 +5,21 @@
 
 
 ## 2. 展示
-> a.数据集
 
-![data](./img/dataset.png "这是鼠标悬停时显示的标题")
+> a.数据集
+![avatar](./img/dataset.png "这是鼠标悬停时显示的标题")
+
+
+> b.训练过程
+
+![avatar](./img/training_curves.png "这是鼠标悬停时显示的标题")
+
+> c.彩票预测
+
+![avatar](./img/result.png "这是鼠标悬停时显示的标题")
+
 
 > b.号码分布
 
-![data](./img/lotto_numbers_distribution.png "这是鼠标悬停时显示的标题")
+![avatar](./img/compare.png "这是鼠标悬停时显示的标题")
 
-> c.训练过程
-
-![data](./img/training_curves.png "这是鼠标悬停时显示的标题")
-
-> d.彩票预测
-
-![data](./img/result.png "这是鼠标悬停时显示的标题")

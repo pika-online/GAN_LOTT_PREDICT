@@ -13,8 +13,8 @@ def lotto_data_loader(file_path, val_n=50, seed=24, batch_size=32):
     back_area_numbers = data['后区'].str.split(' ', expand=True).astype(int)
 
     # 归一化处理
-    front_area_numbers = (front_area_numbers - 1) / 34.0  # 前区号码范围1-35，归一化到0-1
-    back_area_numbers = (back_area_numbers - 1) / 11.0   # 后区号码范围1-12，归一化到0-1
+    front_area_numbers = (front_area_numbers) / 35.0  # 前区号码范围1-35，归一化到0-1
+    back_area_numbers = (back_area_numbers) / 12.0   # 后区号码范围1-12，归一化到0-1
 
     # 合并前区和后区的号码
     all_numbers = pd.concat([front_area_numbers, back_area_numbers], axis=1).values
@@ -63,11 +63,11 @@ def visualize_lotto_numbers(train_loader):
     plt.title('Distribution of Back Area Numbers')
 
     plt.tight_layout()
-    plt.savefig('lotto_numbers_distribution.png')
+    plt.savefig('img/lotto_numbers_distribution.png')
     plt.show()
 
 if __name__ == "__main__":
-    train_loader, val_loader = lotto_data_loader('./dlts.xlsx')
+    train_loader, val_loader = lotto_data_loader('./dataset/dlt_results.xlsx')
     for real_numbers_batch in train_loader:
         print(real_numbers_batch[0].shape)  # Print the shape of the actual tensor in the batch
     

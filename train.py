@@ -11,7 +11,7 @@ from data_loader import lotto_data_loader
 
 # 加载训练和验证数据
 val_n = 100  # 验证集的数量
-train_loader, val_loader = lotto_data_loader('./dlts.xlsx', val_n=val_n)
+train_loader, val_loader = lotto_data_loader('./dataset/dlt_results.xlsx', val_n=val_n)
 
 # 定义生成器和判别器的输入输出维度
 input_dim = 100  # 生成器输入（噪声）的维度
@@ -168,5 +168,5 @@ plt.legend()
 plt.title('Generator and Discriminator Loss over Epochs')
 
 plt.tight_layout()
-plt.savefig('training_curves.png')
+plt.savefig('img/training_curves.png')
 plt.show()
