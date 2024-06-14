@@ -19,7 +19,17 @@
 ![avatar](./img/result.png "这是鼠标悬停时显示的标题")
 
 
-> b.号码分布
+> d.真实号码分布
 
-![avatar](./img/compare.png "这是鼠标悬停时显示的标题")
+![avatar](./img/lotto_numbers_distribution.png "这是鼠标悬停时显示的标题")
 
+> f.生成号码分布
+
+![avatar](./img/lotto_numbers_distribution_predict.png "这是鼠标悬停时显示的标题")
+
+## 3. 联系我么
+> 版本：V3.0
+
+> CSDN主页：[Pika在线](https://ephemeroptera.blog.csdn.net "")
+
+> 邮箱：605686962@qq.com
