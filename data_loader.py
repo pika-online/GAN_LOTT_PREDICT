@@ -12,9 +12,9 @@ def lotto_data_loader(file_path, val_n=50, seed=24, batch_size=32):
     front_area_numbers = data['前区'].str.split(' ', expand=True).astype(int)
     back_area_numbers = data['后区'].str.split(' ', expand=True).astype(int)
 
-    # 归一化处理
-    front_area_numbers = (front_area_numbers) / 35.0  # 前区号码范围1-35，归一化到0-1
-    back_area_numbers = (back_area_numbers) / 12.0   # 后区号码范围1-12，归一化到0-1
+    # 归一化处理 (2*i+1)/2*k 保证 均匀label
+    front_area_numbers = ((front_area_numbers-1)*2+1)/(2*35)
+    back_area_numbers = ((back_area_numbers-1)*2+1)/(2*12)
 
     # 合并前区和后区的号码
     all_numbers = pd.concat([front_area_numbers, back_area_numbers], axis=1).values
@@ -34,30 +34,34 @@ def lotto_data_loader(file_path, val_n=50, seed=24, batch_size=32):
 
     return train_loader, val_loader
 
-def visualize_lotto_numbers(train_loader):
-    # 收集所有彩票号码
-    all_numbers = []
-    for real_numbers_batch in train_loader:
-        real_numbers = real_numbers_batch[0].numpy()
-        all_numbers.append(real_numbers)
-    all_numbers = np.concatenate(all_numbers, axis=0)
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 
-    # 反归一化
-    front_area_numbers = all_numbers[:, :5] * 34 + 1
-    back_area_numbers = all_numbers[:, 5:] * 11 + 1
+def visualize_lotto_numbers(file_path):
+    # 读取文件
+    data = pd.read_excel(file_path)
+
+    # 数据预处理：拆分前区和后区号码并合并为一个数据集，然后进行归一化处理
+    front_area_numbers = data['前区'].str.split(' ', expand=True).astype(int)
+    back_area_numbers = data['后区'].str.split(' ', expand=True).astype(int)
+
+    # 将数据展平为一维数组
+    front_area_numbers_flat = front_area_numbers.values.flatten()
+    back_area_numbers_flat = back_area_numbers.values.flatten()
 
     # 绘制前区号码的分布
     plt.figure(figsize=(14, 7))
 
     plt.subplot(1, 2, 1)
-    plt.hist(front_area_numbers.flatten(), bins=np.arange(1, 37)-0.5, edgecolor='black')
+    plt.hist(front_area_numbers_flat, bins=np.arange(1, 38)-0.5, edgecolor='black')
     plt.xlabel('Front Area Number')
     plt.ylabel('Frequency')
     plt.title('Distribution of Front Area Numbers')
 
     # 绘制后区号码的分布
     plt.subplot(1, 2, 2)
-    plt.hist(back_area_numbers.flatten(), bins=np.arange(1, 14)-0.5, edgecolor='black')
+    plt.hist(back_area_numbers_flat, bins=np.arange(1, 13)-0.5, edgecolor='black')
     plt.xlabel('Back Area Number')
     plt.ylabel('Frequency')
     plt.title('Distribution of Back Area Numbers')
@@ -66,9 +70,10 @@ def visualize_lotto_numbers(train_loader):
     plt.savefig('img/lotto_numbers_distribution.png')
     plt.show()
 
+
 if __name__ == "__main__":
     train_loader, val_loader = lotto_data_loader('./dataset/dlt_results.xlsx')
     for real_numbers_batch in train_loader:
         print(real_numbers_batch[0].shape)  # Print the shape of the actual tensor in the batch
     
-    visualize_lotto_numbers(train_loader)
+    visualize_lotto_numbers('./dataset/dlt_results.xlsx')

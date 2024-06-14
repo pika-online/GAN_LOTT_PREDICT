@@ -3,6 +3,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from generator import Generator
 
+def decode_sigmod(generated_numbers):
+    front_numbers = torch.round((generated_numbers[:, :5] - 1/(2*35))/(1/35)) + 1 
+    back_numbers = torch.round((generated_numbers[:, 5:] - 1/(2*12))/(1/12)) + 1
+    return front_numbers,back_numbers
+
+
 # 定义生成器输入（噪声）的维度和生成器输出（彩票号码）的维度
 input_dim = 100
 output_dim = 7
@@ -15,21 +21,17 @@ generator.load_state_dict(torch.load('models/generator_model.pth'))
 generator.eval()  # 设置生成器为评估模式
 
 # 生成新的噪声数据
-batch_size = 300  # 生成100组彩票号码
+batch_size = 1000  # 生成100组彩票号码
 noise = torch.randn(batch_size, input_dim)
 
 # 通过生成器生成彩票号码
 with torch.no_grad():  # 禁用梯度计算
-    generated_numbers = generator(noise).numpy()
+    generated_numbers = generator(noise)
 
-# 对生成的彩票号码进行后处理（反归一化）
-# 假设前区号码范围1-35，后区号码范围1-12
-front_area_numbers = generated_numbers[:, :5] * 35 
-back_area_numbers = generated_numbers[:, 5:] * 12 
+front_area_numbers,back_area_numbers= decode_sigmod(generated_numbers)
 
-# 将彩票号码转换为四舍五入的整数
-front_area_numbers = np.floor(front_area_numbers) + 1
-back_area_numbers = np.floor(back_area_numbers) + 1
+front_area_numbers = front_area_numbers.numpy()
+back_area_numbers = back_area_numbers.numpy()
 
 # 打印生成的彩票号码
 print("Generated Lottery Numbers:")

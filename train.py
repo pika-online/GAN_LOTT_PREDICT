@@ -39,7 +39,7 @@ d_loss_values = []
 
 # 定义训练参数
 epochs = 10000
-n_critic = 5  # 每次生成器更新对应的判别器更新次数
+n_critic = 10  # 每次生成器更新对应的判别器更新次数
 
 def evaluate(generator, discriminator, val_loader):
     """在验证集上评估模型的性能"""
@@ -146,8 +146,8 @@ for epoch in range(epochs):
     # 早停条件
     if d_acc_variance < 0.1 and g_loss_variance < 0.1 and d_acc_mean < 0.55:
         print("D accuracy and G loss are stable. Stopping training.")
-        torch.save(generator.state_dict(), 'generator_model.pth')
-        torch.save(discriminator.state_dict(), 'discriminator_model.pth')
+        torch.save(generator.state_dict(), 'models/generator_model.pth')
+        torch.save(discriminator.state_dict(), 'models/discriminator_model.pth')
         break
 
 # 绘制结果
