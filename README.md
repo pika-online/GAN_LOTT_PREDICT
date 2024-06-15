@@ -38,13 +38,13 @@
 
 ---
 
-> f.生成号码分布
+> e.生成号码分布
 
 ![avatar](./img/lotto_numbers_distribution_predict.png "这是鼠标悬停时显示的标题")
 
 ---
 
-## 3. 联系我么
+## 3. 联系作者
 > 版本：V3.2
 
 > CSDN主页：[Pika在线](https://ephemeroptera.blog.csdn.net "")
