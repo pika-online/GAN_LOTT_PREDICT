@@ -59,4 +59,4 @@ if __name__ == "__main__":
     generator.print_model_structure()
 
     # 导出模型为 ONNX 格式
-    generator.export_onnx("generator.onnx", (batch_size, input_dim))
+    generator.export_onnx("models/generator.onnx", (batch_size, input_dim))

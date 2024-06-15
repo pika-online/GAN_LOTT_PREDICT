@@ -39,7 +39,7 @@ d_loss_values = []
 
 # 定义训练参数
 epochs = 10000
-n_critic = 10  # 每次生成器更新对应的判别器更新次数
+n_critic = 5  # 每次生成器更新对应的判别器更新次数
 
 def evaluate(generator, discriminator, val_loader):
     """在验证集上评估模型的性能"""

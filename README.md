@@ -3,6 +3,14 @@
 ## 1.教程
 [用GAN网络生成彩票号码](https://ephemeroptera.blog.csdn.net/article/details/139585310 "")
 
+```shell
+> python train.py
+> python test.py
+> python export_onnx.py
+> python infer_onnx.py
+```
+
+
 
 ## 2. 展示
 
@@ -37,7 +45,7 @@
 ---
 
 ## 3. 联系我么
-> 版本：V3.0
+> 版本：V3.2
 
 > CSDN主页：[Pika在线](https://ephemeroptera.blog.csdn.net "")
 
